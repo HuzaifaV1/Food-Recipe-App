@@ -20,7 +20,7 @@ submit.addEventListener("click", function () {
         .then(response => response.json()) // Response converted to JSON file
         .then(data => {
             let html = ''; // Initialize an empty string to store the concatenated HTML
-            cloneData = Object.assign({}, data.meals);
+            cloneData = Object.assign({}, data.meals); // Cloning data.meals to cloneData
             data.meals.forEach(meal => {
                 mealnumber++;
                 // Concatenate the HTML for each meal
@@ -52,7 +52,7 @@ function loop() {
 
 function printRecipe() {
     loop();
-    if (cloneData.meals != undefined) {
+    if (cloneData.meals != undefined) {        
         console.log(cloneData.meals);
     }
 }
