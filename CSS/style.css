@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap');
 
 body {
+    background-color: rgba(255, 127, 80, 0.543);
     font-weight: 300;
     font-size: 1.05rem;
     line-height: 1.6;
@@ -13,16 +14,20 @@ body {
     align-items: center;
     margin-top: 50px;
 }
+.search p {
+    font-style: italic;
+    font-size: 18px;
+}
 
 #Ingredient-name {
     flex: 1;
-    width: 400px;
-    padding: 10px;
-    border: 2px solid #ccc;
+    width: 400px;    
+    padding: 15px;    
+    border: 2px solid black;
     border-radius: 14px;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
-    font-size: 16px;
+    font-size: 18px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     transition: background-color 0.5s ease-in 0.3s;
 }
@@ -31,35 +36,48 @@ body {
     position: relative;
     border-radius: 0 25px 25px 0;
     width: 100px;
-    height: 45px;
-    border: none;
+    height: 58px;
+    border: 2px solid black;
     outline: none;
     cursor: pointer;
     background-color: #ffc107;
-    color: white;
+    color: black;
 }
 
 .meal-image {
     display: inline-block;
     text-align: center;
-    width: 200px;
+    width: 400px;
     
 }
 
 .meal-image img {
     display: block;
-    margin: 0 auto;    
+    margin: 0 auto;   
+    border-radius: 20px; 
+    width: 250px;
 }
 
-/* #recipe img { 
-    display: inline;
+.meal-image a {
+    font-weight: bold;    
+    width: 24px;
 }
 
-#recipe p{
-    display: inline;
-    width: 100px;
-    max-width: 100px;
-} */
+#recipe {
+    border: black dotted 4px;    
+    border-radius: 10px;
+}
+
+#recipe img { 
+    margin-top: 10px;
+    border: black solid 2px ;
+    transition: transform .2s;
+    cursor: pointer;
+}
+
+#recipe img:hover { 
+    transform: scale(1.04);     
+}
 
 #Ingredient-name:focus {
     width: 410px;
