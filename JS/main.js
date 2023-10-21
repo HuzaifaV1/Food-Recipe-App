@@ -5,6 +5,9 @@ let mealnumber = -1;
 let eval_table;
 let cloneData;
 let mealRecipe;
+let mealName;
+let mealCategory;
+let yLink;
 
 function recipe(id) {
     fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`) // using api
@@ -12,8 +15,17 @@ function recipe(id) {
         // Getting data from api
         .then(data => {
             mealRecipe = data.meals[0].strInstructions;// Printing recipe Instruction
+            mealName = data.meals[0].strMeal;// Getting meal Name
+            mealCategory = data.meals[0].strCategory; // Getting category
+            yLink = data.meals[0].strYoutube;// Getting youtube link
             let instruction = document.querySelector("#data");
-            instruction.innerHTML = mealRecipe;
+            let mealHeading = document.querySelector("#data-heading");
+            let Category = document.querySelector("#data-category");
+            let youtubeLink = document.querySelector("#data-youtube");
+            instruction.innerHTML = mealRecipe; // printing recipe instruction
+            mealHeading.innerHTML = mealName; // printing mealname
+            Category.innerHTML = mealCategory; // printing categorey
+            youtubeLink.href = yLink; // printing youtubelink
         })
 }
 
@@ -53,8 +65,11 @@ function loop() {
                  <div class="overlay"></div>
                      <div class="content">
                          <div class="close-btn" onclick="togglePopup()">&times;</div>
-                         <h1 id="data-heading">Recipe</h1>
+                         <h1 id="data-heading"></h1>
+                         <h3 id="data-category">hello</h3>
+                         <h3>Instructions:</h3>
                          <p id="data">${recipe(cloneData[i].idMeal)}</p>
+                         <h2><a id="data-youtube" href="">Watch Video</a></h2>                         
                      </div>            
              </div>`;
             togglePopup();
