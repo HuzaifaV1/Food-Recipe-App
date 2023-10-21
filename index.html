@@ -14,13 +14,20 @@
         <h2>Discover Recipes Based on Your Ingredient</h2>
         <p>Enter an ingredient, and we will recommend recipes.</p>
         <div class="search-bar">
-            <input type="text" name="recipes" id="recipes" placeholder="Search for your next delicious meal...">
-            <button type="submit" class="search-btn btn" id="search-btn">
-                <i class="fas fa-search"></i>
-            </button>
+            <form id="myForm">
+                <input type="text" name="recipes" id="Ingredient-name"
+                    placeholder="Search for your next delicious meal...">
+                <button type="button" class="search-btn btn" id="search-btn">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
         </div>
-        <h2>Results:</h2>
+        <h2>Results: </h2>
+
+        <div id="recipe"></div> <!-- Displays all the recipes here -->
     </main>
+
+    <script src="JS/main.js"></script>
 </body>
 
 </html>
