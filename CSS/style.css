@@ -39,6 +39,28 @@ body {
     color: white;
 }
 
+.meal-image {
+    display: inline-block;
+    text-align: center;
+    width: 200px;
+    
+}
+
+.meal-image img {
+    display: block;
+    margin: 0 auto;    
+}
+
+/* #recipe img { 
+    display: inline;
+}
+
+#recipe p{
+    display: inline;
+    width: 100px;
+    max-width: 100px;
+} */
+
 #Ingredient-name:focus {
     width: 410px;
     transition: ease-in-out, width .15s ease-in-out;
