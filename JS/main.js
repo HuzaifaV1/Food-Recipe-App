@@ -13,6 +13,10 @@ let ingredientMeasure;
 let displayIngredient;
 let ingrediantName;
 
+function category() {
+    fetch(`www.themealdb.com/api/json/v1/1/categories.php`)
+}
+
 function recipe(id) {
     fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`) // using api
         .then(response => response.json()) // Response converted to JSON file
@@ -35,9 +39,6 @@ function recipe(id) {
             for (let i = 1; i <= 20; i++) {
                 ingrediants = data.meals[0]['strIngredient' + i] // getting each ingrediant name
                 ingredientMeasure = data.meals[0]['strMeasure' + i] // getting each ingrediants measurement
-                if (ingrediantName.toLowerCase() == ingrediants.toLowerCase()) {
-                    // document.getElementById("data-ingredient").style.color = "red";
-                }
                 if (ingrediants != "") {
                     document.querySelector("#data-ingredient").innerHTML += i + ". " + ingredientMeasure + " " + ingrediants + "<br>";
                 }
@@ -83,7 +84,7 @@ function loop() {
                      <div class="content">
                          <div class="close-btn" onclick="togglePopup()">&times;</div>
                          <h1 id="data-heading"></h1>
-                         <h3 id="data-category">hello</h3>
+                         <button id="data-category">hello</button>
                          <h3 id="data-ingredient"></h3>
                          <h3>Instructions:</h3>
                          <p id="data">${recipe(cloneData[i].idMeal)}</p>
