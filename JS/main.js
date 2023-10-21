@@ -15,7 +15,6 @@ function recipe(id) {
         })
 }
 
-
 submit.addEventListener("click", function () {
     let ingrediantName = document.getElementById("Ingredient-name").value; // Ingrediant Name
     let recipe = document.getElementById("recipe"); // Display recipe
@@ -38,21 +37,11 @@ submit.addEventListener("click", function () {
             // Set the innerHTML of the 'div' element with the concatenated HTML
             recipe.innerHTML = html;
             e();
-
-            arrayOfMeals = Array.prototype.slice.call(eval_table);
-            console.log(arrayOfMeals)
-            console.log(data);
-            dataArray(data.meals);
-
-            console.log(permaData);
-
+            arrayOfMeals = Array.prototype.slice.call(eval_table);                        
+            dataArray(data.meals);            
             printRecipe();
-        });
-    console.log("Before Before Before Before" + mealname);
-    // mealname = document.getElementsByClassName("mealname")
-    // console.log("Before Before Before" + mealname[0]);
+        });    
 });
-console.log(mealname);
 
 function loop() {
     for (let i = 0; i < arrayOfMeals.length; i++) {
@@ -63,8 +52,7 @@ function loop() {
 }
 
 function e() {
-    eval_table = document.getElementsByClassName('mealname');
-    console.log(eval_table, eval_table.length);
+    eval_table = document.getElementsByClassName('mealname');    
 };
 
 function dataArray(data) {
@@ -72,6 +60,8 @@ function dataArray(data) {
 }
 
 function printRecipe() {
-    console.log(loop());
-    console.log(permaData.meals);
+    loop();
+    if (permaData.meals != undefined) {
+        console.log(permaData.meals);
+    }
 }
