@@ -91,7 +91,9 @@ function loop() {
                          <div class="close-btn" onclick="togglePopup()">&times;</div>
                          <h1 id="data-heading"></h1>
                          <button id="data-category">hello</button>
+                         <div class="ingredient-container">
                          <h3 id="data-ingredient"></h3>
+                         </div>
                          <h3>Instructions:</h3>
                          <p id="data">${recipe(cloneData[i].idMeal)}</p>
                          <h2><a id="data-youtube" href="">Watch Video</a></h2>                         
