@@ -2,9 +2,7 @@ let submit = document.querySelector("#search-btn");
 let mealname;
 let mealnumber = -1;
 let eval_table;
-let arrayOfMeals;
-let permaData;
-
+let cloneData;
 
 function recipe(id) {
     fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`) // using api
@@ -16,12 +14,13 @@ function recipe(id) {
 }
 
 submit.addEventListener("click", function () {
-    let ingrediantName = document.getElementById("Ingredient-name").value; // Ingrediant Name
+    let ingrediantName = document.getElementById("ingredient-name").value; // Ingrediant Name
     let recipe = document.getElementById("recipe"); // Display recipe
     fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingrediantName}`) // using api
         .then(response => response.json()) // Response converted to JSON file
         .then(data => {
             let html = ''; // Initialize an empty string to store the concatenated HTML
+            cloneData = Object.assign({}, data.meals);
             data.meals.forEach(meal => {
                 mealnumber++;
                 // Concatenate the HTML for each meal
@@ -33,35 +32,27 @@ submit.addEventListener("click", function () {
                 mealname = document.getElementsByClassName("mealname");
             });
 
-            // recipe(52772);
             // Set the innerHTML of the 'div' element with the concatenated HTML
             recipe.innerHTML = html;
-            e();
-            arrayOfMeals = Array.prototype.slice.call(eval_table);                        
-            dataArray(data.meals);            
+            eval_table = document.getElementsByClassName('mealname');   
+                   
             printRecipe();
         });    
 });
 
 function loop() {
-    for (let i = 0; i < arrayOfMeals.length; i++) {
-        arrayOfMeals[i].addEventListener('click', function () {
-            recipe(permaData[i].idMeal);
+    // Looping through <a> tags and adding a click event
+    for (let i = 0; i < eval_table.length; i++) {           
+        eval_table[i].addEventListener('click', function () {
+            // Sending id to recipe function
+            recipe(cloneData[i].idMeal);
         })
     }
 }
 
-function e() {
-    eval_table = document.getElementsByClassName('mealname');    
-};
-
-function dataArray(data) {
-    permaData = Array.prototype.slice.call(data);
-}
-
 function printRecipe() {
     loop();
-    if (permaData.meals != undefined) {
-        console.log(permaData.meals);
+    if (cloneData.meals != undefined) {
+        console.log(cloneData.meals);
     }
 }
