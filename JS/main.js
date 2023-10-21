@@ -1,4 +1,5 @@
 let submit = document.querySelector("#search-btn");
+let MealDetails = document.querySelector("#MealDetails");
 let mealname;
 let mealnumber = -1;
 let eval_table;
@@ -34,25 +35,43 @@ submit.addEventListener("click", function () {
 
             // Set the innerHTML of the 'div' element with the concatenated HTML
             recipe.innerHTML = html;
-            eval_table = document.getElementsByClassName('mealname');   
-                   
+            eval_table = document.getElementsByClassName('mealname');
+
             printRecipe();
-        });    
+        });
 });
 
 function loop() {
     // Looping through <a> tags and adding a click event
-    for (let i = 0; i < eval_table.length; i++) {           
+    for (let i = 0; i < eval_table.length; i++) {
         eval_table[i].addEventListener('click', function () {
+            let html = '';
             // Sending id to recipe function
-            recipe(cloneData[i].idMeal);
+            html = `<div id="recipe"></div> <!-- Displays all the recipes here -->
+            <div class="popup" id="popup-1">
+                <div class="overlay"></div>
+                    <div class="content">
+                        <div class="close-btn" onclick="togglePopup()">&times;</div>
+                        <h1 id="data-heading">Recipe</h1>
+                        <p id="data">${recipe(cloneData[i].idMeal)}</p>
+                    </div>            
+            </div>
+            <button onclick="togglePopup()">Popup</button>`;
+
+            MealDetails.innerHTML = html;
         })
     }
 }
 
 function printRecipe() {
-    loop();
-    if (cloneData.meals != undefined) {        
+    loop(); // calling function loop
+    // seeing if cloneData.meals has data or not
+    if (cloneData.meals != undefined) {
         console.log(cloneData.meals);
     }
+}
+
+function togglePopup() {
+    document.getElementById('popup-1').classList.toggle('active');
+    console.log("Function called")
 }
