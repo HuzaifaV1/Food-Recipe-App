@@ -4,13 +4,16 @@ let mealname;
 let mealnumber = -1;
 let eval_table;
 let cloneData;
+let mealRecipe;
 
 function recipe(id) {
     fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`) // using api
         .then(response => response.json()) // Response converted to JSON file
         // Getting data from api
         .then(data => {
-            console.log(data.meals[0].strInstructions);// Printing recipe Instruction
+            mealRecipe = data.meals[0].strInstructions;// Printing recipe Instruction
+            let instruction = document.querySelector("#data");
+            instruction.innerHTML = mealRecipe;
         })
 }
 
@@ -45,20 +48,16 @@ function loop() {
     // Looping through <a> tags and adding a click event
     for (let i = 0; i < eval_table.length; i++) {
         eval_table[i].addEventListener('click', function () {
-            let html = '';
-            // Sending id to recipe function
-            html = `<div id="recipe"></div> <!-- Displays all the recipes here -->
-            <div class="popup" id="popup-1">
-                <div class="overlay"></div>
-                    <div class="content">
-                        <div class="close-btn" onclick="togglePopup()">&times;</div>
-                        <h1 id="data-heading">Recipe</h1>
-                        <p id="data">${recipe(cloneData[i].idMeal)}</p>
-                    </div>            
-            </div>
-            <button onclick="togglePopup()">Popup</button>`;
-
-            MealDetails.innerHTML = html;
+            // Storing Html for popup in variabel html
+            MealDetails.innerHTML = `<div class="popup" id="popup-1">
+                 <div class="overlay"></div>
+                     <div class="content">
+                         <div class="close-btn" onclick="togglePopup()">&times;</div>
+                         <h1 id="data-heading">Recipe</h1>
+                         <p id="data">${recipe(cloneData[i].idMeal)}</p>
+                     </div>            
+             </div>`;
+            togglePopup();
         })
     }
 }
