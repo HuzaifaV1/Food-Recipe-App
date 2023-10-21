@@ -11,7 +11,7 @@ function recipe(id) {
         .then(response => response.json()) // Response converted to JSON file
         // Getting data from api
         .then(data => {
-            console.log(data.meals[0].strInstructions);
+            console.log(data.meals[0].strInstructions);// Printing recipe Instruction
         })
 }
 
@@ -33,45 +33,36 @@ submit.addEventListener("click", function () {
                     </div>`;
                 mealname = document.getElementsByClassName("mealname");
             });
-
-            // recipe(52772);
             // Set the innerHTML of the 'div' element with the concatenated HTML
             recipe.innerHTML = html;
             e();
 
-            arrayOfMeals = Array.prototype.slice.call(eval_table);
-            console.log(arrayOfMeals)
-            console.log(data);
-            dataArray(data.meals);
-
-            console.log(permaData);
-
-            printRecipe();
+            arrayOfMeals = Array.prototype.slice.call(eval_table); // turning mealname into array
+            dataArray(data.meals); // turning data.meals to an array
+            printRecipe(); // Printing instructions
         });
-    console.log("Before Before Before Before" + mealname);
-    // mealname = document.getElementsByClassName("mealname")
-    // console.log("Before Before Before" + mealname[0]);
 });
-console.log(mealname);
 
 function loop() {
     for (let i = 0; i < arrayOfMeals.length; i++) {
+        // seeing if any button is clicked
         arrayOfMeals[i].addEventListener('click', function () {
-            recipe(permaData[i].idMeal);
+            recipe(permaData[i].idMeal); // 
         })
     }
 }
 
+// turning mealname into an array
 function e() {
     eval_table = document.getElementsByClassName('mealname');
     console.log(eval_table, eval_table.length);
 };
 
+
 function dataArray(data) {
-    permaData = Array.prototype.slice.call(data);
+    permaData = Array.prototype.slice.call(data); // turning data into array and into Perma data
 }
 
 function printRecipe() {
-    console.log(loop());
-    console.log(permaData.meals);
+    console.log(loop()); // calling function loop
 }
