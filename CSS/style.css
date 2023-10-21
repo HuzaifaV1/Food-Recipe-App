@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap');
 
 body {
-    background-color: rgba(255, 127, 80, 0.543);
+    background-color: rgba(255, 127, 80, 0.366);
     font-weight: 300;
     font-size: 1.05rem;
     line-height: 1.6;
@@ -19,8 +19,8 @@ body {
     font-size: 18px;
 }
 
-#Ingredient-name {
-    flex: 1;
+#ingredient-name {
+    flex: 1;    
     width: 400px;    
     padding: 15px;    
     border: 2px solid black;
@@ -36,7 +36,7 @@ body {
     position: relative;
     border-radius: 0 25px 25px 0;
     width: 100px;
-    height: 58px;
+    height: 56px;
     border: 2px solid black;
     outline: none;
     cursor: pointer;
@@ -59,12 +59,18 @@ body {
 }
 
 .meal-image a {
-    font-weight: bold;    
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.meal-name {
+    font-weight: bold;        
     width: 24px;
 }
 
 #recipe {
-    border: black dotted 4px;    
+    border: black dashed 4px;    
+    text-align: center;
     border-radius: 10px;
 }
 
@@ -75,14 +81,36 @@ body {
     cursor: pointer;
 }
 
+@media only screen and (max-width: 583px) {
+    .search h2, p {
+        text-align: center;
+    }
+
+    .search-bar {
+        display: flex;
+        align-items: center;
+    }
+
+    #ingredient-name {
+        font-size: 16px;
+        width: 100%; 
+        max-width: 90%; 
+    }
+
+    .btn {
+        margin-left: 5px;
+        height: 53px;
+    }
+}
+
 #recipe img:hover { 
     transform: scale(1.04);     
 }
 
-#Ingredient-name:focus {
+/* #ingredient-name:focus {
     width: 410px;
     transition: ease-in-out, width .15s ease-in-out;
-}
+} */
 
 .btn:hover {
     background-color: #ffc107c0;

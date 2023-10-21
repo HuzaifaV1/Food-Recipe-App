@@ -2,9 +2,7 @@ let submit = document.querySelector("#search-btn");
 let mealname;
 let mealnumber = -1;
 let eval_table;
-let arrayOfMeals;
-let permaData;
-
+let cloneData;
 
 function recipe(id) {
     fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`) // using api
@@ -15,14 +13,14 @@ function recipe(id) {
         })
 }
 
-
 submit.addEventListener("click", function () {
-    let ingrediantName = document.getElementById("Ingredient-name").value; // Ingrediant Name
+    let ingrediantName = document.getElementById("ingredient-name").value; // Ingrediant Name
     let recipe = document.getElementById("recipe"); // Display recipe
     fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingrediantName}`) // using api
         .then(response => response.json()) // Response converted to JSON file
         .then(data => {
             let html = ''; // Initialize an empty string to store the concatenated HTML
+            cloneData = Object.assign({}, data.meals); // Cloning data.meals to cloneData
             data.meals.forEach(meal => {
                 mealnumber++;
                 // Concatenate the HTML for each meal
@@ -33,36 +31,28 @@ submit.addEventListener("click", function () {
                     </div>`;
                 mealname = document.getElementsByClassName("mealname");
             });
+
             // Set the innerHTML of the 'div' element with the concatenated HTML
             recipe.innerHTML = html;
-            e();
-
-            arrayOfMeals = Array.prototype.slice.call(eval_table); // turning mealname into array
-            dataArray(data.meals); // turning data.meals to an array
-            printRecipe(); // Printing instructions
-        });
+            eval_table = document.getElementsByClassName('mealname');   
+                   
+            printRecipe();
+        });    
 });
 
 function loop() {
-    for (let i = 0; i < arrayOfMeals.length; i++) {
-        // seeing if any button is clicked
-        arrayOfMeals[i].addEventListener('click', function () {
-            recipe(permaData[i].idMeal); // 
+    // Looping through <a> tags and adding a click event
+    for (let i = 0; i < eval_table.length; i++) {           
+        eval_table[i].addEventListener('click', function () {
+            // Sending id to recipe function
+            recipe(cloneData[i].idMeal);
         })
     }
 }
 
-// turning mealname into an array
-function e() {
-    eval_table = document.getElementsByClassName('mealname');
-    console.log(eval_table, eval_table.length);
-};
-
-
-function dataArray(data) {
-    permaData = Array.prototype.slice.call(data); // turning data into array and into Perma data
-}
-
 function printRecipe() {
-    console.log(loop()); // calling function loop
+    loop();
+    if (cloneData.meals != undefined) {        
+        console.log(cloneData.meals);
+    }
 }
