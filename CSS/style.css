@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap');
+
+body {
+    font-weight: 300;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    font-family: 'Poppins', sans-serif;
+}
+
+.center-content {     
+    display: flex;
+    flex-direction: column;    
+    align-items: center; 
+    margin-top: 50px;       
+}
+
+#recipes {
+    flex: 1; 
+    width: 400px;
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 14px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    font-size: 16px;  
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    transition: background-color 0.5s ease-in 0.3s;
+}
+
+.btn {
+    position: relative;
+    border-radius: 0 25px 25px 0;
+    width: 100px;
+    height: 45px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background-color: #ffc107;
+    color: white;
+}
+
+#recipes:focus {
+    width: 410px;
+    transition: ease-in-out, width .15s ease-in-out;
+}
+
+.btn:hover {
+    background-color: #ffc107c0;
+}
