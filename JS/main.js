@@ -12,11 +12,18 @@ let ingrediants;
 let ingredientMeasure;
 let displayIngredient;
 let ingrediantName;
+let categoryObject = [];
 
 function category() {
-    fetch(`www.themealdb.com/api/json/v1/1/categories.php`)
+    fetch(`https://www.themealdb.com/api/json/v1/1/categories.php`)
+        .then(response => response.json())
+        .then(data => {
+            for (let i = 0; i <= 13; i++) {
+                categoryObject.push({ id: i + 1, categoreyName: data.categories[i].strCategory });
+            }
+        })
 }
-
+category();
 function recipe(id) {
     fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`) // using api
         .then(response => response.json()) // Response converted to JSON file
@@ -69,7 +76,6 @@ submit.addEventListener("click", function () {
             // Set the innerHTML of the 'div' element with the concatenated HTML
             recipe.innerHTML = html;
             eval_table = document.getElementsByClassName('mealname');
-
             printRecipe();
         });
 });
