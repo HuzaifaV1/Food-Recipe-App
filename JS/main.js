@@ -103,7 +103,12 @@ submit.addEventListener("click", function () {
             cloneData = Object.assign({}, data.meals); // Cloning data.meals to cloneData
 
             let processMeal = function (mealIndex) {
-                if (mealIndex < data.meals.length) {
+                if (data.meals == null) {
+                    console.log("RUN")
+                    recipe.innerHTML = " ";
+                    alert("There are no recipes based on your search");
+                }
+                else if (mealIndex < data.meals.length) {
                     if (categoryDropDown.value == "All") {
                         data.meals.forEach(meal => {
                             html += `<div class="meal-image">
@@ -135,12 +140,8 @@ submit.addEventListener("click", function () {
                             });
                     }
                 } else {
-                    // All meals processed, update the HTML
                     eval_table = document.getElementsByClassName('mealname');
-                    if (trues.length == 0) {
-                        recipe.innerHTML = " ";
-                        alert("There are no recipes based on your search");
-                    }
+                    // All meals processed, update the HTML
                     recipe.innerHTML = html; // Update the HTML after processing all data
                     printRecipe(copyMealId);
                     copyMealId = [];
