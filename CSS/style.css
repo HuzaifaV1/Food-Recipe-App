@@ -79,6 +79,10 @@ body {
     width: 24px;
 }
 
+.loader {
+    margin: 60px 60px;
+}
+
 #recipe {
     border: var(--first-color) dashed 4px;    
     text-align: center;    
@@ -90,6 +94,18 @@ body {
     border: var(--first-color) solid 2px ;
     transition: transform .2s;
     /* cursor: pointer; */
+}
+
+#noIngredient {
+    padding: 60px 60px;    
+    color: red;
+    font-size: 23.5px;
+}
+
+#noRecipe {
+    padding: 60px 60px;    
+    color: red;
+    font-size: 23.5px;
 }
 
 @media only screen and (max-width: 583px) {
