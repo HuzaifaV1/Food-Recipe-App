@@ -48,7 +48,7 @@ function recipes(id) {
             let Category = document.querySelector("#data-category");
             let youtubeLink = document.querySelector("#data-youtube");
             displayIngredient = document.querySelector("#data-ingredient");
-            instruction.innerHTML = mealRecipe; // printing recipe instruction   
+            instruction.innerHTML = mealRecipe; // printing recipe instruction
 
             mealHeading.innerHTML = mealName; // printing mealname
             Category.innerHTML = mealCategory; // printing categorey
@@ -86,7 +86,7 @@ submit.addEventListener("click", function () {
         0% { transform: rotate(0deg); }
         100% { transform: rotate(360deg); }
       }
-    </style><h2 class="loader">Loading...</h2>`;
+    </style><h2 class="loader">Searching...</h2>`;
     ingrediantName = document.getElementById("ingredient-name").value;
     fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingrediantName}`)
         .then(response => response.json())
@@ -129,6 +129,10 @@ submit.addEventListener("click", function () {
                 } else {
                     // All meals processed, update the HTML
                     eval_table = document.getElementsByClassName('mealname');
+                    if (trues.length == 0) {
+                        recipe.innerHTML = " ";
+                        alert("There are no recipes based on your search");
+                    }
                     recipe.innerHTML = html; // Update the HTML after processing all data
                     printRecipe(copyMealId);
                     copyMealId = [];
