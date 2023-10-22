@@ -96,21 +96,36 @@ submit.addEventListener("click", function () {
 
             let processMeal = function (mealIndex) {
                 if (mealIndex < data.meals.length) {
-                    meal = data.meals[mealIndex];
-                    fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${meal.idMeal}`)
-                        .then(response => response.json())
-                        .then(data => {
-                            categoryDropDown = document.querySelector("#Category");
-                            let mealCatStr = data.meals[0].strCategory;
-                            if (mealCatStr == categoryDropDown.value) {
-                                trues.push("true");
-                                processQ(meal.strMeal, meal.strMealThumb);
-                                copyMealId.push(meal.idMeal);
-                            } else {
-                                falses.push("false");
-                            }
-                            processMeal(mealIndex + 1);
+                    if (categoryDropDown.value == "All") {
+                        data.meals.forEach(meal => {
+                            html += `<div class="meal-image">
+                            <img src="${meal.strMealThumb}" alt="food" width="100px"> 
+                            <a class="mealname" href="#">${meal.strMeal}</a>
+                            </div>`;
+                            recipe.innerHTML = html;
+                            copyMealId.push(meal.idMeal);
                         });
+                        eval_table = document.getElementsByClassName('mealname');
+                        printRecipe(copyMealId);
+                        copyMealId = [];
+                    }
+                    else {
+                        meal = data.meals[mealIndex];
+                        fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${meal.idMeal}`)
+                            .then(response => response.json())
+                            .then(data => {
+                                categoryDropDown = document.querySelector("#Category");
+                                let mealCatStr = data.meals[0].strCategory;
+                                if (mealCatStr == categoryDropDown.value) {
+                                    trues.push("true");
+                                    processQ(meal.strMeal, meal.strMealThumb);
+                                    copyMealId.push(meal.idMeal);
+                                } else {
+                                    falses.push("false");
+                                }
+                                processMeal(mealIndex + 1);
+                            });
+                    }
                 } else {
                     // All meals processed, update the HTML
                     eval_table = document.getElementsByClassName('mealname');
