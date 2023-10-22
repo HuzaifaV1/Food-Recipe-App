@@ -162,6 +162,11 @@ body {
     transition: background-color 0.3s, color 0.3s;
 }
 
+.button {
+    width: 100px;
+    height: 60px;    
+}
+
 #data-youtube {        
     text-decoration: none;  
     color: rgb(82, 136, 234);
@@ -191,7 +196,7 @@ body {
     width: fit-content;        
     color: black;        
     font-size: medium; 
-    text-align: center;    
+    text-align: start;    
     -webkit-text-stroke-width: 0.3px;
     -webkit-text-stroke-color: white;
     
