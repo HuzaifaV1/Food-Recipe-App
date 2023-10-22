@@ -162,9 +162,32 @@ body {
     transition: background-color 0.3s, color 0.3s;
 }
 
-.button {
-    width: 100px;
-    height: 60px;    
+.button {    
+    width: 165px;
+    height: 60px;
+    text-wrap: nowrap;
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    background-color: #4CAF50; /* Background color */
+    color: #fff; /* Text color */
+    border: none;
+    border-radius: 30px; /* Circular button */
+    font-size: 18px;
+    text-align: center;
+    line-height: 60px;
+    cursor: pointer;    
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.button:hover {
+    background-color: #45a049; /* Darker background color on hover */
+    transform: scale(1.05); /* Slight scale on hover */
+}
+
+.button:active {
+    background-color: #3d8942; /* Slightly darker background color when clicked */
+    transform: scale(0.95); /* Slight scale when clicked */
 }
 
 #data-youtube {        
