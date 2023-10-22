@@ -83,9 +83,8 @@ submit.addEventListener("click", function () {
         .then(data => {
             html = '';
             cloneData = Object.assign({}, data.meals); // Cloning data.meals to cloneData
-            if (ingrediantName == "") {
-                alert("Please enter a ingrediant");
-                recipe.innerHTML = " ";
+            if (ingrediantName == "") {                
+                recipe.innerHTML = `<h3 id="noIngredient">Please enter an ingrediant.<h1>`;
                 return 0;
             }
             if (data.meals == null) {
@@ -150,6 +149,10 @@ submit.addEventListener("click", function () {
                     eval_table = document.getElementsByClassName('mealname');
                     // All meals processed, update the HTML
                     recipe.innerHTML = html; // Update the HTML after processing all data
+                    console.log(recipe.innerHTML);
+                    if (recipe.innerHTML == "") {
+                        recipe.innerHTML = `<h3 id="noRecipe">No recipes based on your search<h1>`;
+                    }
                     printRecipe(copyMealId);
                     copyMealId = [];
                 }
