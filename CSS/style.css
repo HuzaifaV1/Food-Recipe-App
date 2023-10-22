@@ -57,7 +57,6 @@ body {
     display: inline-block;
     text-align: center;
     width: 400px;
-    
 }
 
 .meal-image img {
@@ -70,8 +69,9 @@ body {
 .meal-image a {
     font-weight: 400;
     font-size: 18px;
-    text-decoration: none;
-    color: black;
+    text-decoration: underline;
+    font-size: 20px;
+    /* color: ; */
 }
 
 .meal-name {
@@ -89,7 +89,7 @@ body {
     margin-top: 30px;
     border: var(--first-color) solid 2px ;
     transition: transform .2s;
-    cursor: pointer;
+    /* cursor: pointer; */
 }
 
 @media only screen and (max-width: 583px) {
@@ -272,6 +272,15 @@ body {
     color: var(--third-color);
 }
 
+.category-container #Area {
+    font-size: large;
+    font-weight: 450;
+    margin-right: 5px;
+    border: black 2px solid;
+    border-radius: 10px;    
+    color: var(--third-color);
+}
+
 #data-heading {
     text-align: center;
     color: black;  
@@ -279,7 +288,7 @@ body {
 }
 
 #recipe img:hover { 
-    transform: scale(1.04);     
+    transform: scale(1.02);     
 }
 
 /* #ingredient-name:focus {
