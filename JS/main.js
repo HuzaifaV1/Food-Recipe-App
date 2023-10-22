@@ -1,5 +1,7 @@
 let submit = document.querySelector("#search-btn");
 let MealDetails = document.querySelector("#MealDetails");
+let categoryDropDown = document.querySelector("#Category");
+let categoryDropdownValue = categoryDropDown.value;
 let mealname;
 let mealnumber = -1;
 let eval_table;
@@ -13,6 +15,12 @@ let ingredientMeasure;
 let displayIngredient;
 let ingrediantName;
 let categoryObject = [];
+let trues = [];
+let falses;
+let html = '';
+let meal;
+let copyMealId = [];
+
 
 function category() {
     fetch(`https://www.themealdb.com/api/json/v1/1/categories.php`)
@@ -25,15 +33,6 @@ function category() {
 }
 category();
 
-function filterCat(id) {
-    fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`) // using api
-        .then(response => response.json()) // Response converted to JSON file
-        // Getting data from api
-        .then(data => {
-            let mealCatStr = data.meals[0].strCategory;
-            console.log(mealCatStr);
-        })
-}
 function recipe(id) {
     fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`) // using api
         .then(response => response.json()) // Response converted to JSON file
@@ -63,39 +62,65 @@ function recipe(id) {
         })
 }
 
-// to see when they clicked teh search button
 submit.addEventListener("click", function () {
-    ingrediantName = document.getElementById("ingredient-name").value; // Ingrediant Name
-    let recipe = document.getElementById("recipe"); // Display recipe
-    fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingrediantName}`) // using api
-        .then(response => response.json()) // Response converted to JSON file
+    ingrediantName = document.getElementById("ingredient-name").value;
+    let recipe = document.getElementById("recipe");
+
+    fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingrediantName}`)
+        .then(response => response.json())
         .then(data => {
-            let html = ''; // Initialize an empty string to store the concatenated HTML
+            html = '';
             cloneData = Object.assign({}, data.meals); // Cloning data.meals to cloneData
-            data.meals.forEach(meal => {
+            let processMeal = function (mealIndex) {
+                if (mealIndex < data.meals.length) {
+                    meal = data.meals[mealIndex];
+                    fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${meal.idMeal}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            categoryDropDown = document.querySelector("#Category");
+                            let mealCatStr = data.meals[0].strCategory;
+                            if (mealCatStr == categoryDropDown.value) {
+                                trues.push("true");
+                                processQ(meal.strMeal, meal.strMealThumb);
+                                copyMealId.push(meal.idMeal);
+                                recipe.innerHTML = html;
+                            } else {
+                                recipe.innerHTML = html;
+                            }
+                            processMeal(mealIndex + 1); // Process the next meal
+                        });
 
-                console.log(data);
-                mealnumber++;
-                // Concatenate the HTML for each meal
-                html += `
-                <div class="meal-image">
-                    <img src="${meal.strMealThumb}" alt="food" width="100px">
-                    <a class="mealname" id="${mealnumber}" href="#">${meal.strMeal}</a>
-                    </div>`;
-                mealname = document.getElementsByClassName("mealname"); // getting all mealnames
-            });
+                } else {
+                    // All meals processed, update the HTML
+                    recipe.innerHTML = html;
+                    eval_table = document.getElementsByClassName('mealname');
+                    console.log(copyMealId);
+                    loop(copyMealId);
+                    copyMealId = [];
+                }
+            };
 
-            // Set the innerHTML of the 'div' element with the concatenated HTML
-            recipe.innerHTML = html;
-            eval_table = document.getElementsByClassName('mealname');
-            printRecipe();
+            // Start processing the first meal
+            processMeal(0);
         });
 });
 
+function processQ(names, pics) {
+    html += `
+        <div class="meal-image">
+            <img src="${pics}" alt="food" width="100px"> 
+            <a class="mealname" href="#">${names}</a>
+        </div>`;
+    // Concatenate the HTML for each meal
+    // console.log(html);
+}
 
 
 
-function loop() {
+
+
+
+function loop(idemeal) {
     // Looping through <a> tags and adding a click event
     for (let i = 0; i < eval_table.length; i++) {
         eval_table[i].addEventListener('click', function () {
@@ -110,7 +135,8 @@ function loop() {
                          <h3 id="data-ingredient"></h3>
                          </div>
                          <h3>Instructions:</h3>
-                         <p id="data">${recipe(cloneData[i].idMeal)}</p>
+                         <p id="data">${recipe(idemeal[i])}</p>
+                         <div class="line"></div>
                          <h2><a id="data-youtube" href="">Watch Video</a></h2>                         
                      </div>            
              </div>`;
