@@ -2,7 +2,8 @@ let submit = document.querySelector("#search-btn");
 let MealDetails = document.querySelector("#MealDetails");
 let categoryDropDown = document.querySelector("#Category");
 let categoryDropdownValue = categoryDropDown.value;
-let recipe = document.getElementById("recipe");
+let recipe = document.getElementById("recipe"); // randomButton
+let randomButton = document.getElementById("randomButton");
 let mealname;
 let mealnumber = -1;
 let eval_table;
@@ -22,6 +23,13 @@ let html = '';
 let meal;
 let copyMealId = [];
 
+randomButton.addEventListener('click', () => {
+    fetch("https://www.themealdb.com/api/json/v1/1/random.php")
+        .then(response => response.json())
+        .then(data => {
+            forRandomMeal(data.meals[0].idMeal);
+        })
+});
 
 function category() {
     fetch(`https://www.themealdb.com/api/json/v1/1/categories.php`)
@@ -48,7 +56,7 @@ function recipes(id) {
             let Category = document.querySelector("#data-category");
             let youtubeLink = document.querySelector("#data-youtube");
             displayIngredient = document.querySelector("#data-ingredient");
-            instruction.innerHTML = mealRecipe; // printing recipe instruction   
+            instruction.innerHTML = mealRecipe; // printing recipe instruction
 
             mealHeading.innerHTML = mealName; // printing mealname
             Category.innerHTML = mealCategory; // printing categorey
@@ -86,7 +94,7 @@ submit.addEventListener("click", function () {
         0% { transform: rotate(0deg); }
         100% { transform: rotate(360deg); }
       }
-    </style><h2 class="loader">Loading...</h2>`;
+    </style><h2 class="loader">Searching...</h2>`;
     ingrediantName = document.getElementById("ingredient-name").value;
     fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingrediantName}`)
         .then(response => response.json())
@@ -129,6 +137,10 @@ submit.addEventListener("click", function () {
                 } else {
                     // All meals processed, update the HTML
                     eval_table = document.getElementsByClassName('mealname');
+                    if (trues.length == 0) {
+                        recipe.innerHTML = " ";
+                        alert("There are no recipes based on your search");
+                    }
                     recipe.innerHTML = html; // Update the HTML after processing all data
                     printRecipe(copyMealId);
                     copyMealId = [];
@@ -149,6 +161,24 @@ function processQ(names, pics) {
         </div>`;
 }
 
+function forRandomMeal(idMeal) {
+    MealDetails.innerHTML = `<div class="popup" id="popup-1">
+    <div class="overlay"></div>
+        <div class="content">
+            <div class="close-btn" onclick="togglePopup()">&times;</div>
+            <h1 id="data-heading"></h1>
+            <button id="data-category">hello</button>
+            <div class="ingredient-container">
+            <h3 id="data-ingredient"></h3>
+            </div>
+            <h3>Instructions:</h3>
+            <p id="data">${recipes(idMeal)}</p>
+            <div class="line"></div>
+            <h2><a id="data-youtube" href="">Watch Video</a></h2>                         
+        </div>            
+</div>`;
+    togglePopup(); // calling function togglePopup
+}
 
 function loop(idemeal) {
     // Looping through <a> tags and adding a click event
@@ -188,5 +218,4 @@ function printRecipe(idmeal) {
 
 function togglePopup() {
     document.getElementById('popup-1').classList.toggle('active');
-    console.log("Function called")
 }
