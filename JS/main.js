@@ -1,7 +1,5 @@
 let submit = document.querySelector("#search-btn");
 let MealDetails = document.querySelector("#MealDetails");
-let categoryDropdown = document.getElementById("Category");
-let categoryvalue = categoryDropdown.value;
 let mealname;
 let mealnumber = -1;
 let eval_table;
@@ -33,9 +31,7 @@ function filterCat(id) {
         // Getting data from api
         .then(data => {
             let mealCatStr = data.meals[0].strCategory;
-            if (mealCatStr == categoryvalue) {
-
-            }
+            console.log(mealCatStr);
         })
 }
 function recipe(id) {
@@ -76,10 +72,9 @@ submit.addEventListener("click", function () {
         .then(data => {
             let html = ''; // Initialize an empty string to store the concatenated HTML
             cloneData = Object.assign({}, data.meals); // Cloning data.meals to cloneData
-            for (let i = 0; i < eval_table.length; i++) {
-                filterCat(cloneData[i].idMeal);
-            }
             data.meals.forEach(meal => {
+
+                console.log(data);
                 mealnumber++;
                 // Concatenate the HTML for each meal
                 html += `
