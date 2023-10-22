@@ -1,5 +1,7 @@
 let submit = document.querySelector("#search-btn");
 let MealDetails = document.querySelector("#MealDetails");
+let categoryDropdown = document.getElementById("Category");
+let categoryvalue = categoryDropdown.value;
 let mealname;
 let mealnumber = -1;
 let eval_table;
@@ -24,6 +26,18 @@ function category() {
         })
 }
 category();
+
+function filterCat(id) {
+    fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`) // using api
+        .then(response => response.json()) // Response converted to JSON file
+        // Getting data from api
+        .then(data => {
+            let mealCatStr = data.meals[0].strCategory;
+            if (mealCatStr == categoryvalue) {
+
+            }
+        })
+}
 function recipe(id) {
     fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`) // using api
         .then(response => response.json()) // Response converted to JSON file
@@ -62,6 +76,9 @@ submit.addEventListener("click", function () {
         .then(data => {
             let html = ''; // Initialize an empty string to store the concatenated HTML
             cloneData = Object.assign({}, data.meals); // Cloning data.meals to cloneData
+            for (let i = 0; i < eval_table.length; i++) {
+                filterCat(cloneData[i].idMeal);
+            }
             data.meals.forEach(meal => {
                 mealnumber++;
                 // Concatenate the HTML for each meal
@@ -79,6 +96,9 @@ submit.addEventListener("click", function () {
             printRecipe();
         });
 });
+
+
+
 
 function loop() {
     // Looping through <a> tags and adding a click event
