@@ -4,6 +4,7 @@ let categoryDropDown = document.querySelector("#Category");
 let categoryDropdownValue = categoryDropDown.value;
 let recipe = document.getElementById("recipe"); // randomButton
 let randomButton = document.getElementById("randomButton");
+let ingrediantName = document.getElementById("ingredient-name");
 let mealname;
 let mealnumber = -1;
 let eval_table;
@@ -15,7 +16,6 @@ let yLink;
 let ingrediants;
 let ingredientMeasure;
 let displayIngredient;
-let ingrediantName;
 let categoryObject = [];
 let trues = [];
 let falses = [];
@@ -103,8 +103,13 @@ submit.addEventListener("click", function () {
             cloneData = Object.assign({}, data.meals); // Cloning data.meals to cloneData
 
             let processMeal = function (mealIndex) {
+                console.log(ingrediantName)
+                if (ingrediantName == "") {
+                    alert("Please enter a ingrediant");
+                    recipe.innerHTML = " ";
+                    return 0;
+                }
                 if (data.meals == null) {
-                    console.log("RUN")
                     recipe.innerHTML = " ";
                     alert("There are no recipes based on your search");
                 }
